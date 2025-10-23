@@ -1,0 +1,166 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# PyCharm
+.idea/
+
+# VSCode
+.vscode/
+
+# macOS
+.DS_Store
+
+# Data files (generalmente grandes)
+*/data/*
+!*/data/.gitkeep
+*.csv
+*.xlsx
+*.json
+*.parquet
+*.feather
+
+# Datasets descargados
+datasets/
+data/raw/
+data/processed/
+
+# Modelos entrenados (generalmente grandes)
+*/models/*
+!*/models/.gitkeep
+*.h5
+*.pkl
+*.pth
+*.pt
+*.ckpt
+*.pb
+*.onnx
+*.tflite
+*.safetensors
+
+# Logs
+*.log
+logs/
+wandb/
+tensorboard/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# OS generated files
+Thumbs.db
+desktop.ini
+
+# Test coverage
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Documentation builds
+docs/_build/
+site/
+
+# Node.js (para proyecto 20)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Next.js (para proyecto 20)
+.next/
+out/
+next-env.d.ts
+
+# Docker
+docker-compose.override.yml
+
+# Images and media (si son generadas)
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.mp4
+*.wav
+*.mp3
+# Excepto assets del proyecto
+!assets/*.png
+!assets/*.jpg
+
+# Checkpoints de modelos durante entrenamiento
+checkpoints/
+*.ckpt
+
+# Archivos grandes de embeddings
+*.vec
+*.bin
+
+# Cache de transformers
+.cache/
+transformers_cache/
+
+# Profiling
+*.prof
+
+# Secrets
+secrets/
+credentials/
+*.key
+*.pem
+
+# API keys y tokens
+api_keys.txt
+tokens.json
