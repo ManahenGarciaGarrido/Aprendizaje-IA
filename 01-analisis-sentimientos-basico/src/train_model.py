@@ -316,7 +316,8 @@ def main():
     texts = texts[:MAX_SAMPLES]
     labels = labels[:MAX_SAMPLES]
 
-    processed_texts = batch_preprocess(texts)
+    # Preprocesar usando inglés (idioma del dataset IMDB)
+    processed_texts = batch_preprocess(texts, language='english')
 
     # ========================================
     # PASO 3: DIVIDIR TRAIN/TEST

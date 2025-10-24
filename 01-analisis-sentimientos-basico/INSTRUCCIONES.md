@@ -97,6 +97,36 @@ Si tienes tu propio dataset CSV:
 texts, labels = load_data_from_csv('ruta/a/tu/archivo.csv')
 ```
 
+### 🌍 IMPORTANTE: Idioma del modelo
+
+**El modelo está entrenado en INGLÉS** (dataset IMDB de reviews en inglés).
+
+**Para usar textos en inglés** (recomendado):
+- ✅ Ya está configurado por defecto
+- Los textos deben estar en inglés para obtener buenos resultados
+- Ejemplos: "This movie is amazing!", "Terrible film, waste of time"
+
+**Para entrenar con textos en español:**
+
+1. Necesitas un dataset en español (el IMDB es solo inglés)
+2. Cambia el idioma del preprocesador en `train_model.py` línea 320:
+   ```python
+   processed_texts = batch_preprocess(texts, language='spanish')
+   ```
+3. Cambia el idioma en `predict.py` línea 64:
+   ```python
+   self.preprocessor = TextPreprocessor(language='spanish')
+   ```
+4. Opciones de datasets en español:
+   - Kaggle: "Spanish Sentiment Analysis"
+   - Twitter datasets
+   - Reviews de productos en español
+
+**¿Por qué el idioma es importante?**
+- Las stopwords cambian: "the, a, is" (inglés) vs "el, la, es" (español)
+- El lemmatizer funciona diferente según el idioma
+- Si el idioma no coincide, las predicciones serán incorrectas
+
 ---
 
 ## Solución de problemas

@@ -38,16 +38,21 @@ class TextPreprocessor:
     - Sigue patrones de diseño comunes en ML
     """
 
-    def __init__(self, language='spanish'):
+    def __init__(self, language='english'):
         """
         Inicializa el preprocesador
 
         Args:
             language (str): Idioma para stopwords ('english' o 'spanish')
+                          Por defecto 'english' porque IMDB está en inglés
 
         ¿Qué son las stopwords?
         - Palabras muy comunes que aportan poco significado: "the", "a", "is"
         - Las eliminamos porque no ayudan a distinguir sentimientos
+
+        IMPORTANTE: El idioma debe coincidir con el dataset de entrenamiento:
+        - IMDB dataset → 'english'
+        - Dataset español → 'spanish'
         """
         self.stop_words = set(stopwords.words(language))
 
@@ -220,7 +225,7 @@ class TextPreprocessor:
         return processed_text
 
 
-def batch_preprocess(texts, language='spanish'):
+def batch_preprocess(texts, language='english'):
     """
     Preprocesa múltiples textos de forma eficiente
 
@@ -228,7 +233,7 @@ def batch_preprocess(texts, language='spanish'):
 
     Args:
         texts (list): Lista de textos
-        language (str): Idioma
+        language (str): Idioma (por defecto 'english' para IMDB)
 
     Returns:
         list: Lista de textos preprocesados
