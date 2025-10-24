@@ -312,7 +312,7 @@ def main():
 
     # Usar máximo 10000 textos para entrenamiento rápido
     # Para producción, usa todos (25000)
-    MAX_SAMPLES = 10000  # Cambiar a len(texts) para usar todos
+    MAX_SAMPLES = len(texts)  # Cambiar a len(texts) para usar todos
     texts = texts[:MAX_SAMPLES]
     labels = labels[:MAX_SAMPLES]
 
