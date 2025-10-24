@@ -63,7 +63,14 @@ class SentimentPredictor:
         self.preprocessor = TextPreprocessor()
 
         # Mapeo de etiquetas a nombres legibles
-        self.label_names = {0: 'Negativo', 1: 'Positivo'}
+        # Ahora incluye 'Neutral' para predicciones inciertas
+        self.label_names = {0: 'Negativo', 1: 'Positivo', 2: 'Neutral'}
+
+        # Umbral para clasificar como neutral
+        # Si la probabilidad está entre NEUTRAL_THRESHOLD_LOW y NEUTRAL_THRESHOLD_HIGH,
+        # se clasifica como neutral
+        self.NEUTRAL_THRESHOLD_LOW = 0.35
+        self.NEUTRAL_THRESHOLD_HIGH = 0.65
 
         print("Modelo cargado y listo!")
 
@@ -75,13 +82,14 @@ class SentimentPredictor:
         1. Preprocesar (limpiar, tokenizar, lemmatizar)
         2. Vectorizar (convertir a números con TF-IDF)
         3. Predecir con el modelo
-        4. Convertir número a etiqueta
+        4. Evaluar confianza para detectar neutrales
+        5. Convertir número a etiqueta
 
         Args:
             text (str): Texto a analizar
 
         Returns:
-            str: Sentimiento predicho ('Positivo' o 'Negativo')
+            str: Sentimiento predicho ('Positivo', 'Negativo' o 'Neutral')
         """
         # 1. Preprocesar el texto
         # Esto lo limpia y normaliza igual que en entrenamiento
@@ -92,11 +100,21 @@ class SentimentPredictor:
         # que vio durante el entrenamiento
         text_vector = self.vectorizer.transform([processed_text])
 
-        # 3. Predecir
-        # El modelo devuelve 0 o 1
-        prediction = self.model.predict(text_vector)[0]
+        # 3. Obtener probabilidades
+        # Si el modelo no está seguro (probabilidades cercanas a 0.5),
+        # clasificamos como neutral
+        probas = self.predict_proba(text)
 
-        # 4. Convertir a nombre legible
+        # 4. Detectar neutral basado en incertidumbre
+        # Si la probabilidad del sentimiento positivo está entre los umbrales,
+        # significa que el modelo no está seguro -> clasificar como neutral
+        prob_positive = probas['Positivo']
+
+        if self.NEUTRAL_THRESHOLD_LOW < prob_positive < self.NEUTRAL_THRESHOLD_HIGH:
+            return 'Neutral'
+
+        # 5. Si no es neutral, usar predicción normal
+        prediction = self.model.predict(text_vector)[0]
         return self.label_names[prediction]
 
     def predict_proba(self, text):
@@ -175,11 +193,22 @@ class SentimentPredictor:
         sentiment = self.predict(text)
         probas = self.predict_proba(text)
 
-        # Calcular confianza (probabilidad máxima)
-        confidence = max(probas.values())
+        # Calcular confianza
+        # Para neutral, la confianza es qué tan cerca está de 0.5
+        # Para positivo/negativo, es la probabilidad máxima
+        if sentiment == "Neutral":
+            # Confianza en neutral = qué tan cerca está de 0.5 (máxima incertidumbre)
+            confidence = 1.0 - abs(probas['Positivo'] - 0.5) * 2
+        else:
+            confidence = max(probas.values())
 
         # Emoji según sentimiento
-        emoji = "😊" if sentiment == "Positivo" else "😞"
+        if sentiment == "Positivo":
+            emoji = "😊"
+        elif sentiment == "Negativo":
+            emoji = "😞"
+        else:  # Neutral
+            emoji = "😐"
 
         result = {
             'text': text,
@@ -268,14 +297,16 @@ def main():
     print("  EJEMPLOS DE PREDICCIÓN")
     print("=" * 70)
 
-    # Textos de ejemplo
+    # Textos de ejemplo (incluye casos positivos, negativos y neutrales)
     test_texts = [
         "This movie was absolutely amazing! Best film I've ever seen.",
         "Terrible movie, complete waste of time and money.",
         "It was okay, nothing special but not bad either.",
+        "The movie is average, has some good and bad parts.",
         "I loved the acting but the plot was confusing.",
         "Worst movie ever. I want my money back!",
         "Brilliant masterpiece! Oscar-worthy performance.",
+        "The film has its moments but overall it's just fine.",
     ]
 
     # Analizar cada texto
