@@ -38,7 +38,7 @@ class TextPreprocessor:
     - Sigue patrones de diseño comunes en ML
     """
 
-    def __init__(self, language='english'):
+    def __init__(self, language='spanish'):
         """
         Inicializa el preprocesador
 
@@ -220,7 +220,7 @@ class TextPreprocessor:
         return processed_text
 
 
-def batch_preprocess(texts, language='english'):
+def batch_preprocess(texts, language='spanish'):
     """
     Preprocesa múltiples textos de forma eficiente
 
@@ -268,7 +268,7 @@ def main():
     Check it out at http://example.com #mustwatch @director
     """
 
-    print("\n📝 TEXTO ORIGINAL:")
+    print("\nTEXTO ORIGINAL:")
     print("-" * 60)
     print(sample_text)
 
@@ -278,7 +278,7 @@ def main():
     # Aplicar preprocesamiento
     processed = preprocessor.preprocess(sample_text)
 
-    print("\n✨ TEXTO PROCESADO:")
+    print("\nTEXTO PROCESADO:")
     print("-" * 60)
     print(processed)
 
@@ -290,7 +290,7 @@ def main():
     print(f"Palabras después del procesamiento: {processed_words}")
     print(f"Reducción: {100 * (1 - processed_words/original_words):.1f}%")
 
-    print("\n✅ El texto está listo para ser vectorizado!")
+    print("\nEl texto está listo para ser vectorizado!")
 
 
 if __name__ == "__main__":

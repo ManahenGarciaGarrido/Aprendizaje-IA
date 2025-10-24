@@ -10,7 +10,7 @@ Este script implementa el PIPELINE COMPLETO de entrenamiento:
 6. Evaluación
 7. Guardado del mejor modelo
 
-Autor: Tu nombre
+Autor: Manahen García Garrido
 Fecha: 2025
 """
 
@@ -40,8 +40,8 @@ def load_data_from_tfds():
     Returns:
         tuple: (texts, labels) - listas de textos y etiquetas
     """
-    print("📥 Cargando dataset IMDB desde TensorFlow Datasets...")
-    print("   (Primera vez puede tardar ~5 min en descargar ~80MB)")
+    print("Cargando dataset IMDB desde TensorFlow Datasets...")
+    print("(Primera vez puede tardar ~5 min en descargar ~80MB)")
 
     # Cargar solo el split de entrenamiento (25,000 reviews)
     # as_supervised=True devuelve (texto, label) directamente
@@ -59,8 +59,8 @@ def load_data_from_tfds():
         texts.append(text.numpy().decode('utf-8'))
         labels.append(label.numpy())
 
-    print(f"✅ Dataset cargado: {len(texts)} reviews")
-    print(f"   Distribución: {sum(labels)} positivas, {len(labels)-sum(labels)} negativas")
+    print(f"Dataset cargado: {len(texts)} reviews")
+    print(f"Distribución: {sum(labels)} positivas, {len(labels)-sum(labels)} negativas")
 
     return texts, labels
 
@@ -77,7 +77,7 @@ def load_data_from_csv(csv_path):
     Returns:
         tuple: (texts, labels)
     """
-    print(f"📥 Cargando datos desde {csv_path}...")
+    print(f"Cargando datos desde {csv_path}...")
 
     df = pd.read_csv(csv_path)
 
@@ -88,7 +88,7 @@ def load_data_from_csv(csv_path):
     texts = df['review'].tolist()
     labels = df['label'].tolist()
 
-    print(f"✅ Dataset cargado: {len(texts)} reviews")
+    print(f"Dataset cargado: {len(texts)} reviews")
     return texts, labels
 
 
@@ -118,7 +118,7 @@ def vectorize_texts(texts_train, texts_test, method='tfidf', max_features=5000):
     Returns:
         tuple: (X_train_vec, X_test_vec, vectorizer)
     """
-    print(f"\n🔢 Vectorizando textos con {method.upper()}...")
+    print(f"\nVectorizando textos con {method.upper()}...")
     print(f"   Vocabulario máximo: {max_features} palabras")
 
     if method == 'tfidf':
@@ -151,7 +151,7 @@ def vectorize_texts(texts_train, texts_test, method='tfidf', max_features=5000):
     # En TEST usamos el vocabulario de TRAIN (¡nunca al revés!)
     X_test_vec = vectorizer.transform(texts_test)
 
-    print(f"✅ Vectorización completada!")
+    print(f"Vectorización completada!")
     print(f"   Shape train: {X_train_vec.shape}")
     print(f"   Shape test: {X_test_vec.shape}")
     print(f"   Vocabulario aprendido: {len(vectorizer.vocabulary_)} palabras")
@@ -178,7 +178,7 @@ def train_and_evaluate_model(X_train, y_train, X_test, y_test, model_type='logis
     Returns:
         tuple: (modelo entrenado, métricas)
     """
-    print(f"\n🤖 Entrenando modelo: {model_type}")
+    print(f"\nEntrenando modelo: {model_type}")
 
     # Seleccionar modelo
     if model_type == 'naive_bayes':
@@ -219,7 +219,7 @@ def train_and_evaluate_model(X_train, y_train, X_test, y_test, model_type='logis
     # CALCULAR MÉTRICAS
     accuracy = accuracy_score(y_test, y_pred)
 
-    print(f"\n📊 Resultados {model_type}:")
+    print(f"\nResultados {model_type}:")
     print(f"   Accuracy: {accuracy:.4f} ({accuracy*100:.2f}%)")
     print("\n" + classification_report(y_test, y_pred,
                                        target_names=['Negativo', 'Positivo']))
@@ -266,12 +266,12 @@ def save_model(model, vectorizer, model_dir='../models'):
 
     # joblib es mejor que pickle para objetos de scikit-learn
     # Es más eficiente y maneja arrays grandes mejor
-    print(f"\n💾 Guardando modelo...")
+    print(f"\nGuardando modelo...")
     joblib.dump(model, model_path)
     joblib.dump(vectorizer, vectorizer_path)
 
-    print(f"   ✅ Modelo guardado en: {model_path}")
-    print(f"   ✅ Vectorizer guardado en: {vectorizer_path}")
+    print(f"Modelo guardado en: {model_path}")
+    print(f"Vectorizer guardado en: {vectorizer_path}")
 
 
 # ============================================================
@@ -300,7 +300,7 @@ def main():
     try:
         texts, labels = load_data_from_tfds()
     except Exception as e:
-        print(f"❌ Error cargando desde TFDS: {e}")
+        print(f"Error cargando desde TFDS: {e}")
         print("   Intenta con CSV si tienes el dataset descargado")
         return
 
@@ -321,7 +321,7 @@ def main():
     # ========================================
     # PASO 3: DIVIDIR TRAIN/TEST
     # ========================================
-    print("\n📊 Dividiendo datos...")
+    print("\nDividiendo datos...")
 
     # 80% entrenamiento, 20% prueba
     # random_state=42: hace que la división sea reproducible
@@ -376,7 +376,7 @@ def main():
     best_model = trained_models[best_idx]
     best_metrics = results[best_idx]
 
-    print(f"\n🏆 MEJOR MODELO: {best_metrics['model_type']}")
+    print(f"\nMEJOR MODELO: {best_metrics['model_type']}")
     print(f"   Accuracy: {best_metrics['accuracy']:.4f}")
 
     # ========================================
@@ -385,9 +385,9 @@ def main():
     save_model(best_model, vectorizer)
 
     print("\n" + "=" * 70)
-    print("  ✅ ENTRENAMIENTO COMPLETADO")
+    print("  ENTRENAMIENTO COMPLETADO")
     print("=" * 70)
-    print("\n💡 Para hacer predicciones, usa: python predict.py")
+    print("\nPara hacer predicciones, usa: python predict.py")
 
 
 if __name__ == "__main__":

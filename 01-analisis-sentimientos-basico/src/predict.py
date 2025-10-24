@@ -39,18 +39,18 @@ class SentimentPredictor:
             model_path (str): Ruta al modelo guardado (.pkl)
             vectorizer_path (str): Ruta al vectorizador guardado (.pkl)
         """
-        print("🔄 Cargando modelo y vectorizador...")
+        print("Cargando modelo y vectorizador...")
 
         # Verificar que los archivos existen
         if not os.path.exists(model_path):
             raise FileNotFoundError(
-                f"❌ Modelo no encontrado: {model_path}\n"
+                f"Modelo no encontrado: {model_path}\n"
                 "   Ejecuta primero: python train_model.py"
             )
 
         if not os.path.exists(vectorizer_path):
             raise FileNotFoundError(
-                f"❌ Vectorizador no encontrado: {vectorizer_path}\n"
+                f"Vectorizador no encontrado: {vectorizer_path}\n"
                 "   Ejecuta primero: python train_model.py"
             )
 
@@ -65,7 +65,7 @@ class SentimentPredictor:
         # Mapeo de etiquetas a nombres legibles
         self.label_names = {0: 'Negativo', 1: 'Positivo'}
 
-        print("✅ Modelo cargado y listo!")
+        print("Modelo cargado y listo!")
 
     def predict(self, text):
         """
@@ -220,11 +220,11 @@ def interactive_mode(predictor):
 
     while True:
         # Leer input del usuario
-        text = input("📝 Tu texto: ").strip()
+        text = input("Tu texto: ").strip()
 
         # Salir si el usuario escribe 'salir'
         if text.lower() in ['salir', 'exit', 'quit', 'q']:
-            print("\n👋 ¡Hasta luego!")
+            print("\n¡Hasta luego!")
             break
 
         # Saltar si está vacío
@@ -257,7 +257,7 @@ def main():
 
     except FileNotFoundError as e:
         print(f"\n{e}")
-        print("\n💡 Primero debes entrenar el modelo:")
+        print("\nPrimero debes entrenar el modelo:")
         print("   python train_model.py")
         return
 
@@ -280,7 +280,7 @@ def main():
 
     # Analizar cada texto
     for i, text in enumerate(test_texts, 1):
-        print(f"\n📄 Ejemplo {i}:")
+        print(f"\nEjemplo {i}:")
         print(f"   \"{text}\"")
         predictor.analyze(text)
 
@@ -295,7 +295,7 @@ def main():
     if response in ['s', 'si', 'sí', 'yes', 'y']:
         interactive_mode(predictor)
 
-    print("\n✅ ¡Gracias por usar el predictor de sentimientos!")
+    print("\n¡Gracias por usar el predictor de sentimientos!")
 
 
 if __name__ == "__main__":
