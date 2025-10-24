@@ -1,8 +1,8 @@
-# ⚡ INSTRUCCIONES RÁPIDAS - Proyecto 1
+# INSTRUCCIONES RÁPIDAS - Proyecto 1
 
-## 🎯 ¿Dónde ejecutar?
+## ¿Dónde ejecutar?
 
-**✅ TU PORTÁTIL es PERFECTO** (no necesitas GPU)
+**TU PORTÁTIL es PERFECTO** (no necesitas GPU)
 - Los modelos son ligeros (ML tradicional, no deep learning)
 - Tiempo estimado: 5-15 minutos
 - Requiere: ~4GB RAM, ~500MB disco
@@ -11,7 +11,7 @@
 
 ---
 
-## 🚀 Instalación y Ejecución
+## Instalación y Ejecución
 
 ### Paso 1: Instalar dependencias
 
@@ -52,7 +52,7 @@ python predict.py
 
 ---
 
-## 📊 Opciones de uso
+## Opciones de uso
 
 ### Opción A: Scripts Python (Recomendado para aprender)
 
@@ -80,7 +80,7 @@ jupyter notebook notebook.ipynb
 
 ---
 
-## 🔧 Configuración personalizada
+## Configuración personalizada
 
 ### Cambiar cantidad de datos
 
@@ -99,7 +99,7 @@ texts, labels = load_data_from_csv('ruta/a/tu/archivo.csv')
 
 ---
 
-## ❓ Solución de problemas
+## Solución de problemas
 
 ### Error: "No module named 'nltk'"
 ```bash
@@ -126,7 +126,7 @@ pip install tensorflow-datasets
 
 ---
 
-## 📈 Resultados esperados
+## Resultados esperados
 
 **Accuracy esperado:** 85-90%
 - Naive Bayes: ~84-87%
@@ -138,25 +138,25 @@ pip install tensorflow-datasets
 
 ---
 
-## 💡 Próximos pasos
+## Próximos pasos
 
-1. ✅ Ejecuta los scripts y entiende cada paso
-2. 🔬 Experimenta con el código:
+1. Ejecuta los scripts y entiende cada paso
+2. Experimenta con el código:
    - Cambia hiperparámetros
    - Prueba otros modelos (SVM)
    - Analiza palabras más importantes
-3. 📝 Lee los comentarios en el código
-4. 🎯 Pasa al Proyecto 2
+3. Lee los comentarios en el código
+4. Pasa al Proyecto 2
 
 ---
 
-## 📚 Conceptos clave aprendidos
+## Conceptos clave aprendidos
 
-- ✅ Preprocesamiento de texto (tokenización, lemmatización, stopwords)
-- ✅ Vectorización (TF-IDF vs Bag of Words)
-- ✅ Modelos de clasificación (Naive Bayes, Logistic Regression)
-- ✅ Evaluación (Accuracy, Precision, Recall, F1-Score)
-- ✅ Pipeline completo de ML
+- Preprocesamiento de texto (tokenización, lemmatización, stopwords)
+- Vectorización (TF-IDF vs Bag of Words)
+- Modelos de clasificación (Naive Bayes, Logistic Regression)
+- Evaluación (Accuracy, Precision, Recall, F1-Score)
+- Pipeline completo de ML
 
 ---
 
