@@ -60,7 +60,8 @@ class SentimentPredictor:
         self.vectorizer = joblib.load(vectorizer_path)
 
         # Inicializar preprocesador (MISMO que en entrenamiento)
-        self.preprocessor = TextPreprocessor()
+        # IMPORTANTE: Usar 'english' porque el modelo IMDB está en inglés
+        self.preprocessor = TextPreprocessor(language='english')
 
         # Mapeo de etiquetas a nombres legibles
         # Ahora incluye 'Neutral' para predicciones inciertas
